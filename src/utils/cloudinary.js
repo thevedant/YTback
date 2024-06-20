@@ -28,5 +28,19 @@ const uploadOnCloudinary = async (localFilePath) => {
     }
 }
 
+const delelteOnCloudinary = async(oldImageUrl , publicId)=>{
+    try{
+        if (!(oldImageUrl || publicId)) throw new ApiError(404, "oldImageUrl or publicId required");
+        const result = await cloudinary.uploader.destroy(
+            publicId,
+            { resource_type : `${oldImageUrl.includes("image")?"image" : "video"} `},
+        )
+        console.log("Asset deleted from Cloudinary:", result)
+    }
+    catch{
 
-export { uploadOnCloudinary }
+    }
+}
+
+
+export { uploadOnCloudinary ,delelteOnCloudinary }
